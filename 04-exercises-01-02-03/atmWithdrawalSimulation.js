@@ -103,5 +103,5 @@ function withdrawMoney(withdrawalValue) {
     //! Do note the return consists of another function.
 }
 
-console.log(withdrawMoney(479));
+console.log(withdrawMoney(479)); //! Understand the console.log's !
 
