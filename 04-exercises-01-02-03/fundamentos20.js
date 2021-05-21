@@ -1,78 +1,98 @@
-function sacarDinheiro(valorSaque) {
-    let contador100 = 0
-    let contador50 = 0
-    let contador10 = 0
-    let contador5 = 0
-    let contador1 = 0
-    let valorNota = calcularValorNota(valorSaque)
-    while (valorSaque >= valorNota) {
-        switch (valorNota) {
-            case 100:
-                valorSaque -= 100
-                contador100++
-                break
-            case 50:
-                valorSaque -= 50
-                contador50++
-                break
-            case 10:
-                valorSaque -= 10
-                contador10++
-                break
-            case 5:
-                valorSaque -= 5
-                contador5++
-                break
-            case 1:
-                contador1++
-                valorSaque -= 1
-                break
-        }
-
-        valorNota = calcularValorNota(valorSaque)
-
-    }
-    return elaborarResultado(contador100, contador50, contador10, contador5, contador1)
-}
-
-function calcularValorNota(valorSaque) {
-    if (valorSaque >= 100) {
+//! This function tells which bill must go out as a according to
+//! a current given withdrawal value.
+function calculateBillValue(withdrawalValue) {
+    if (withdrawalValue >= 100) {
         return 100
-    } else if (valorSaque >= 50) {
+    } 
+    else if (withdrawalValue >= 50) {
         return 50
-    } else if (valorSaque >= 10) {
+    } 
+    else if (withdrawalValue >= 10) {
         return 10
-    } else if (valorSaque >= 5) {
+    } 
+    else if (withdrawalValue >= 5) {
         return 5
-    } else if (valorSaque >= 1) {
+    } 
+    else if (withdrawalValue >= 1) {
         return 1
     }
 }
 
-function elaborarResultado(contador100, contador50, contador10, contador5, contador1) {
-    let resultado = ''
+//! This function counts the bills according to the way
+//! set by 'calculateBillValue'.
+function withdrawMoney(withdrawalValue) {
+    //! At the start, all counters are set to zero.
+    let counter100Bill = 0
+    let counter50Bill = 0
+    let counter10Bill = 0
+    let counter5Bill = 0
+    let counter1Bill = 0
 
-    if (contador100 > 0) {
-        resultado += `${contador100} nota(s) de R$ 100. `
+    let billValue = calculateBillValue(withdrawalValue)
+
+    while (withdrawalValue >= billValue) {
+        switch (billValue) {
+            case 100:
+                withdrawalValue -= 100 //! Subtraction assignment.
+                counter100Bill++
+                break
+            case 50:
+                withdrawalValue -= 50 //! Subtracts the money.
+                counter50Bill++ //! Adds the bill.
+                break
+            case 10:
+                withdrawalValue -= 10 //! Subtracts the money.
+                counter10Bill++ //! Adds the bill.
+                break
+            case 5:
+                withdrawalValue -= 5
+                counter5Bill++
+                break
+            case 1:
+                withdrawalValue -= 1
+                counter1Bill++
+                break
+        }
+
+        valorNota = calculateBillValue(withdrawalValue)
+
     }
-
-    if (contador50 > 0) {
-        resultado += `${contador50} nota(s) de R$ 50. `
-    }
-
-    if (contador10 > 0) {
-        resultado += `${contador10} nota(s) de R$ 10. `
-    }
-
-    if (contador5 > 0) {
-        resultado += `${contador5} nota(s) de R$ 5. `
-    }
-
-    if (contador1 > 0) {
-        resultado += `${contador1} nota(s) de R$ 1. `
-    }
-
-    return resultado
+    return elaborateBillCount(counter100Bill, counter50Bill, counter10Bill, counter5Bill, counter1Bill) 
+    //! Do note the return consists of another function.
 }
 
-console.log(sacarDinheiro(153));
+
+
+//! This function uses both 'calculateBillValue' and 'withdrawMoney'
+//! to elaborate how many of each bill we need to fulfill a prescribed
+//! amount.
+
+function elaborateBillCount(counter100Bill, counter50Bill, counter10Bill, counter5Bill, counter1Bill) 
+{
+    let numberOfBills = '' //! At first, an empty string.
+
+    if (counter100Bill > 0) {
+        numberOfBills += `${counter100Bill} bills of US$ 100. ` 
+        //! Addition assingnment. Adds string when condition is true.
+    }
+
+    if (counter50Bill > 0) {
+        numberOfBills += `${counter50Bill} bills of US$ 50. `
+    }
+
+    if (counter10Bill > 0) {
+        numberOfBills += `${counter10Bill} bills of US$ 10. `
+    }
+
+    if (counter5Bill > 0) {
+        numberOfBills += `${counter5Bill} bills of US$ 5. `
+    }
+
+    if (counter1Bill > 0) {
+        numberOfBills += `${counter1Bill} bills of US$ 1. `
+    }
+
+    return numberOfBills
+}
+
+console.log(withdrawMoney(270));
