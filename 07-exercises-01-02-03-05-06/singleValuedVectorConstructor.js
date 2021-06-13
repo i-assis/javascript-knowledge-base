@@ -26,5 +26,5 @@ function arrayAtConsole(item, numberOfRepetitions)
     (item, numberOfRepetitions) )
 }
 
-arrayAtConsole('code', 3) // returns ["code", "code"]
+arrayAtConsole('code', 2) // returns ["code", "code"]
 arrayAtConsole(7, 3) // returns [7, 7, 7]
